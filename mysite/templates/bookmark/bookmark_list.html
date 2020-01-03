@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+    </head>
+    <body>
+            <h1>
+                Bookmark List
+            </h1>
+            <div id="content">
+            <ul>
+                {% for bookmark in bookmarks %}
+                    <li>
+                        <a href="{% url 'bookmark:detail' bookmark.id%}">{{ bookmark }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            </div>
+    </body>
+    
+</html>
