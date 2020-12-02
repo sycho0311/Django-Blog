@@ -3,12 +3,9 @@ from django.views.generic import ListView, DetailView
 
 from bookmark.models import Bookmark
 
-# Create your views here.
 class BookmarkLV(ListView):
     model = Bookmark
-    context_object_name = 'bookmarks'
 
 
 class BookmarkDV(DetailView):
     model = Bookmark
-    context_object_name = 'bookmark'

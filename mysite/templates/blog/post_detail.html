@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Blog Post Detail</title>
+</head>
+<body>
+    <h1>{{ object.title }}</h1>
+
+    <p>
+        {% if object.get_previous %}
+        <a href="{{ object.get_previous.get_absolute_url }}" title="View previous Post">
+            &laquo;- {{ object.get_previous }}
+        </a>
+        {% endif %}
+
+        {% if object.get_next %}
+        | <a href="{{ object.get_next.get_absolute_url }}", title="View next Post">
+            {{ object.get_next }} -&raquo;
+        </a>
+        {% endif %}
+    </p>
+    <p>
+        {{ object.modify_dt|date:"j F Y" }}
+    </p>
+    <br>
+
+    <div>
+        {{ object.content|linebreaks }}
+    </div>
+</body>
+</html>

@@ -1,22 +1,32 @@
-from django.views.generic import RedirectView
 from django.urls import path, re_path
 
 from blog import views
 
-# app name
-# <a href="{% url 'app_name:urlpatterns(name)' %}">
-app_name = 'blogpost'
+app_name = 'blog'
 urlpatterns = [
-    # path('', views.BlogPostLV.as_view(), name='index'),
-    path('', RedirectView.as_view(url='post')),
-    
-    # TODO name='' means : .html url naming conf 
-    path('post/', views.BlogPostLV.as_view(), name='blogpost_list'),
-    re_path(r'^post/(?P<slug>[-\w]+)/$', views.BlogPostDV.as_view(), name='blogpost_detail'),
+    # /blog/
+    path('', views.PostLV.as_view(), name='index'),
 
-    path('archive/', views.BlogPostAV.as_view(), name='blogpost_archive'),
+    # /blog/post/
+    path('post/', views.PostLV.as_view(), name='post_list'),
 
-    path('archive/<int:year>/', views.BlogPostYAV.as_view(), name='blogpost_year_archive'),
+    # /blog/post/slug-exam/
+    # 한국어 처리를 위한 re_path 및 패턴
+    # path('post/<slug:slug>/', views.PostDV.as_view(), name='post_detail'),
+    re_path(r'^post/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'),
 
-    path('archive/<int:year>/<str:month>/', views.BlogPostMAV.as_view(), name='blogpost_month_archive'),
+    # /blog/archive/
+    path('archive/', views.PostAV.as_view(), name='post_archive'),
+
+    # /blog/archive/2020/
+    path('archive/<int:year>/', views.PostYAV.as_view(), name='post_year_archive'),
+
+    # /blog/archive/2020/nov/
+    path('archive/<int:year>/<str:month>/', views.PostMAV.as_view(), name='post_month_archive'),
+
+    # /blog/archive/2020/nov/10/
+    path('archive/<int:year>/<str:month>/<int:day>/', views.PostDAV.as_view(), name='post_day_archive'),
+
+    # /blog/archive/today/
+    path('archive/today/', views.PostTAV.as_view(), name='archive_today_archive'),
 ]
